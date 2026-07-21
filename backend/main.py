@@ -6,11 +6,20 @@ from chunk_service import split_text
 from embeding_service import create_embeddings
 from vector_store import store_chunks
 from rag_service import ask_question
+from fastapi.middleware.cors import CORSMiddleware
 
 from llm import generate_answer
 
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 
 class ChatRequest(BaseModel):
